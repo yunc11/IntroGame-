@@ -1,0 +1,52 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerHealth : MonoBehaviour
+{
+    public int maxHealth = 100;
+    public Slider healthBar;
+
+    private int currentHealth;
+
+    void Start()
+    {
+        currentHealth = maxHealth;
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth;
+
+        Debug.Log("Player health: " + currentHealth);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (currentHealth <= 0) return;
+
+        currentHealth = Mathf.Max(0, currentHealth - damage);
+
+        healthBar.value = currentHealth;
+
+        Debug.Log("Player health: " + currentHealth);
+
+        if (currentHealth == 0)
+        {
+            Die();
+        }
+    }
+
+    void Update()
+    {
+        // Press H to test taking 10 damage
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            TakeDamage(10);
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Player has died!");
+
+        GetComponent<PlayerMovement>().enabled = false;
+    }
+}
