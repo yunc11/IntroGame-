@@ -57,15 +57,24 @@ public class PlayerInventory : MonoBehaviour
         OnInventoryChanged?.Invoke();
     }
 
-    // public int DepositCores()
-    // {
-    //     int deposited = Cores;
-    //     Cores = 0;
-    //     foreach (Transform orb in orbs) if (orb != null) Destroy(orb.gameObject);
-    //     orbs.Clear();
-    //     OnInventoryChanged?.Invoke();
-    //     return deposited;
-    // }
+
+    public int DepositCores()
+        {
+        int deposited = Cores;
+        Cores = 0;
+
+        foreach (Transform orb in orbs)
+        {
+            if (orb != null)
+                Destroy(orb.gameObject);
+        }
+
+        orbs.Clear();
+
+        OnInventoryChanged?.Invoke();
+
+        return deposited;
+        }
 
     private void SpawnOrb()
     {

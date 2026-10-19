@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
     public Slider healthBar;
 
     private int currentHealth;
+    [Header("Game Over UI")]
+    [SerializeField] private GameObject gameOverPanel;
 
     void Start()
     {
@@ -46,6 +48,13 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("Player has died!");
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         GetComponent<PlayerMovement>().enabled = false;
     }
