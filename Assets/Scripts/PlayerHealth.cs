@@ -36,14 +36,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Press H to test taking 10 damage
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(10);
-        }
-    }
 
     void Die()
     {
