@@ -7,9 +7,10 @@ The aim is to collect three energy cores while avoiding enemies around the map. 
 
 ## How to Play
 - **WASD** - Move around
-- **E** - Enter the portal (once you have all three energy cores)
-- Collect all three energy cores scattered around the map.
-- Avoid the enemies while collecting the cores.
+- **Mouse** - Look around and control the camera.
+- **E** - Enter the portal (Only when you have 3 energy cores)
+- Collect all three energy cores around the map.
+- Escape from enemies while collecting the cores.
 - Reach the portal to win.
 
 ## Features
@@ -26,7 +27,7 @@ The aim is to collect three energy cores while avoiding enemies around the map. 
 3. Press Play to start the game.
 
 ## Play Online
-WebGL link: To be added.
+https://yunc11.github.io/IntroGame-/build/index.html
 
 ## Tools Used
 - Unity 2023.1.22f1
