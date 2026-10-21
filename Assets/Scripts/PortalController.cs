@@ -1,6 +1,9 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
+
 
 public class PortalController : MonoBehaviour
 {
@@ -12,6 +15,9 @@ public class PortalController : MonoBehaviour
     [SerializeField] private Renderer portalSurface;
     [SerializeField] private Material inactiveMaterial;
     [SerializeField] private Material activeMaterial;
+
+    [Header("Portal UI")]
+    [SerializeField] private TextMeshProUGUI portalPromptText;
 
     private PlayerInventory inventory;
     private Transform player;
@@ -39,11 +45,13 @@ public class PortalController : MonoBehaviour
             Debug.LogWarning("Portal: Player not found.");
 
         UpdatePortalAppearance();
+        UpdatePortalPrompt(false);
     }
 
+    
     private void Update()
     {
-        if (player == null || gameWon)
+        if (player == null)
             return;
 
         Vector3 playerPosition = player.position;
@@ -52,10 +60,16 @@ public class PortalController : MonoBehaviour
         playerPosition.y = 0f;
         portalPosition.y = 0f;
 
-        float distance =
-            Vector3.Distance(playerPosition, portalPosition);
+        float distance = Vector3.Distance(
+            playerPosition,
+            portalPosition
+        );
 
-        if (distance > interactionRadius)
+        bool isNearPortal = distance <= interactionRadius;
+
+        UpdatePortalPrompt(isNearPortal);
+
+        if (!isNearPortal || gameWon)
             return;
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -66,6 +80,7 @@ public class PortalController : MonoBehaviour
                 WinGame();
         }
     }
+
 
     private void DepositCores()
     {
@@ -150,4 +165,36 @@ public class PortalController : MonoBehaviour
             interactionRadius
         );
     }
+
+
+    private void UpdatePortalPrompt(bool isNearPortal)
+    {
+        if (portalPromptText == null)
+            return;
+
+        if (!isNearPortal || gameWon)
+        {
+            portalPromptText.gameObject.SetActive(false);
+            return;
+        }
+
+        portalPromptText.gameObject.SetActive(true);
+
+        if (portalRepaired)
+        {
+            portalPromptText.text = "Press E to escape!";
+            portalPromptText.color = Color.cyan;
+        }
+        else if (inventory != null && inventory.Cores > 0)
+        {
+            portalPromptText.text = "Press E to deposit Energy Cores";
+            portalPromptText.color = Color.white;
+        }
+        else
+        {
+            portalPromptText.text = "Collect Energy Cores to repair the portal";
+            portalPromptText.color = Color.yellow;
+        }
+    }
+
 }

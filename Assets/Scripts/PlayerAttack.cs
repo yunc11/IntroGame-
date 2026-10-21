@@ -25,9 +25,11 @@ public class PlayerAttack : MonoBehaviour
             return;
         }
 
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = mainCamera.ViewportPointToRay(
+            new Vector3(0.5f, 0.5f, 0f)
+        );
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
         {
             EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
 
